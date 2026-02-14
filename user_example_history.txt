@@ -1,0 +1,137 @@
+COMMIT|777ecda22ecee756ee268ab7fcf187c975da248f|chainproof-dev|chainproof.fun@gmail.com|2026-01-16T04:46:33Z|Initial commit of WebGL Portfolio
+A	.cta.json
+A	.env.example
+A	.gitignore
+A	.vscode/settings.json
+A	LICENSE
+A	README.md
+A	WebGL-Fluid-Simulation
+A	package-lock.json
+A	package.json
+A	pnpm-lock.yaml
+A	public/assets/LDR_LLL1_0.png
+A	public/assets/gradient1.jpg
+A	public/assets/gradient2.jpg
+A	public/assets/gradient3.jpg
+A	public/assets/gradient4.jpg
+A	public/assets/ogimg.png
+A	public/assets/themes/forest.png
+A	public/assets/themes/midnight.png
+A	public/assets/themes/monochrome.png
+A	public/assets/themes/ocean.png
+A	public/assets/themes/rose.png
+A	public/assets/themes/sunset.png
+A	public/favicon.ico
+A	public/logo192.png
+A	public/logo512.png
+A	public/manifest.json
+A	public/robots.txt
+A	public/tanstack-circle-logo.png
+A	public/tanstack-word-logo-white.svg
+A	src/components/FluidBackground.tsx
+A	src/components/portfolio/Blog.tsx
+A	src/components/portfolio/Education.tsx
+A	src/components/portfolio/Experience.tsx
+A	src/components/portfolio/Footer.tsx
+A	src/components/portfolio/GitHubChart.tsx
+A	src/components/portfolio/Hero.tsx
+A	src/components/portfolio/Icon.tsx
+A	src/components/portfolio/IllustrationOverlay.tsx
+A	src/components/portfolio/Portfolio.tsx
+A	src/components/portfolio/Projects.tsx
+A	src/components/portfolio/SkillSlider.tsx
+A	src/components/portfolio/Skills.tsx
+A	src/components/portfolio/SpotifyWidget.tsx
+A	src/components/portfolio/index.ts
+A	src/context/ThemeContext.tsx
+A	src/data/data.json
+A	src/lib/constants.ts
+A	src/lib/fluidSimulation.ts
+A	src/lib/skillIcons.ts
+A	src/lib/spotify.ts
+A	src/lib/themes.ts
+A	src/lib/utils.ts
+A	src/routeTree.gen.ts
+A	src/router.tsx
+A	src/routes/__root.tsx
+A	src/routes/index.tsx
+A	src/styles.css
+A	src/types/portfolio.ts
+A	tsconfig.json
+A	vite.config.ts
+
+COMMIT|ea70e1765f6fb455d30a0b3e713c8c256eca70d4|chainproof-dev|chainproof.fun@gmail.com|2026-01-16T05:12:33Z|feat: Establish foundational SEO with robots.txt, structured data, and meta tags, and introduce a LazyImage component for optimized loading.
+M	public/robots.txt
+A	src/components/common/LazyImage.tsx
+A	src/components/seo/JsonLd.tsx
+A	src/lib/schema.ts
+A	src/lib/seo.ts
+M	src/routes/__root.tsx
+
+COMMIT|fd121a150e325ea2f36e0358d1cc78eeb7280321|chainproof-dev|chainproof.fun@gmail.com|2026-01-16T06:50:57Z|chore: Delete an unspecified file.
+D	WebGL-Fluid-Simulation
+
+COMMIT|e30b051055f5e80d4f1e4bfc650b4e8eae84e32f|chainproof-dev|chainproof.fun@gmail.com|2026-01-16T08:35:08Z|feat: Add Cloudflare Pages deployment configuration, initial portfolio data, and updated deployment instructions.
+M	.env.example
+M	README.md
+M	src/data/data.json
+M	vite.config.ts
+A	wrangler.toml
+
+COMMIT|d9a34d57aa5a94e970f2139bc4960d0aedb217b2|chainproof-dev|chainproof.fun@gmail.com|2026-01-18T08:40:47Z|feat: Add new skill definitions, documentation, benchmark results, and example files across multiple skill directories.
+A	.agent/skills
+M	package-lock.json
+A	src/components/blog/BlogCard.tsx
+A	src/components/blog/BlogContent.tsx
+A	src/components/blog/BlogLayout.tsx
+A	src/components/blog/TableOfContents.tsx
+A	src/components/blog/index.ts
+A	src/data/blogs.json
+M	src/data/data.json
+M	src/routeTree.gen.ts
+A	src/routes/blog.tsx
+A	src/routes/blog/$slug.tsx
+A	src/routes/blog/index.tsx
+M	src/types/portfolio.ts
+
+COMMIT|4206222ad4bdbd060894c944d0dc20c4f7be64ed|chainproof-dev|chainproof.fun@gmail.com|2026-01-18T08:59:17Z|feat: Implement a comprehensive blog feature with content rendering, routing, search, sharing, comments, and RSS feed.
+M	src/components/blog/BlogContent.tsx
+A	src/components/blog/BlogSearch.tsx
+A	src/components/blog/GiscusComments.tsx
+A	src/components/blog/ReadingProgress.tsx
+A	src/components/blog/ShareButtons.tsx
+M	src/components/blog/index.ts
+A	src/lib/rss.ts
+M	src/routeTree.gen.ts
+M	src/routes/blog/$slug.tsx
+M	src/routes/blog/index.tsx
+A	src/routes/rss.tsx
+
+COMMIT|362409967198a11ae1aeb607440050a3ab4029c9|chainproof-dev|chainproof.fun@gmail.com|2026-01-18T10:12:49Z|feat: Implement initial portfolio site structure including blog, theming, dynamic background, and SEO utilities.
+M	src/components/FluidBackground.tsx
+M	src/components/blog/BlogLayout.tsx
+A	src/components/common/ErrorBoundary.tsx
+M	src/components/portfolio/Hero.tsx
+M	src/components/portfolio/Portfolio.tsx
+M	src/context/ThemeContext.tsx
+M	src/data/data.json
+A	src/lib/__tests__/schema.test.ts
+A	src/lib/__tests__/seo.test.ts
+A	src/lib/__tests__/themes.test.ts
+A	src/lib/sitemap.ts
+M	src/lib/themes.ts
+M	src/routeTree.gen.ts
+M	src/routes/__root.tsx
+M	src/routes/blog/index.tsx
+A	src/routes/sitemap.tsx
+M	src/types/portfolio.ts
+
+COMMIT|bf8f4c472751c6f036749f2792a0272dc8a43087|chainproof-dev|chainproof.fun@gmail.com|2026-01-18T11:19:09Z|feat: Introduce portfolio skill slider, dynamic fluid background, and initial blog components with new utilities and dependencies.
+M	package-lock.json
+M	package.json
+M	src/components/FluidBackground.tsx
+M	src/components/blog/BlogCard.tsx
+M	src/components/blog/BlogContent.tsx
+M	src/components/blog/BlogSearch.tsx
+M	src/components/portfolio/SkillSlider.tsx
+M	src/lib/utils.ts
