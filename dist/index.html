@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Gource — Visualize Repository History</title>
+    <meta name="description"
+        content="Drag & drop your git log file and watch your repository's history come alive in 3D. Inspired by Gource.">
+  <script type="module" crossorigin src="/assets/index-D2XQdQ-t.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CPzPSdmc.css">
+</head>
+
+<body>
+    <!-- Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Tooltip (visible on hover) -->
+    <div id="tooltip" class="tooltip"></div>
+
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="intro-screen">
+        <h1 class="intro-title">GIT GOURCE</h1>
+        <p class="intro-subtitle">Visualize your repository's history</p>
+
+        <div id="drop-zone" class="drop-zone">
+            <div class="drop-zone-icon">📂</div>
+            <div class="drop-zone-text">Drop your git history file here</div>
+            <div class="drop-zone-hint">or click to browse</div>
+        </div>
+
+        <input type="file" id="file-input" accept=".txt,.log">
+
+        <div class="command-box">
+            <div class="command-label">Generate your history file</div>
+            <div id="command-text" class="command-text">git log --reverse --numstat
+                --pretty=format:"COMMIT|%H|%an|%ae|%aI|%s" > git-history.txt</div>
+            <div class="command-hint">📋 Click to copy • Run this in your repository</div>
+        </div>
+
+        <div id="copy-feedback" class="copy-feedback">✓ Copied to clipboard!</div>
+
+        <div class="reference">
+            Inspired by <a href="https://gource.io/" target="_blank">Gource</a><br>
+            <span class="powered-by">Powered by <a href="https://threejs.org/" target="_blank">Three.js</a></span>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <div id="loading-text" class="loading-text">Loading...</div>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Stats Panel -->
+    <div id="stats-panel" class="stats-panel">
+        <div class="stats-title">Repository</div>
+        <div class="stat-row">
+            <span class="stat-label">Commits</span>
+            <span id="stat-commits" class="stat-value">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Authors</span>
+            <span id="stat-authors" class="stat-value">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Active Files</span>
+            <span id="stat-files" class="stat-value">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Lines Added</span>
+            <span id="stat-lines-added" class="stat-value" style="color: var(--accent-success)">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Lines Deleted</span>
+            <span id="stat-lines-deleted" class="stat-value" style="color: var(--accent-danger)">0</span>
+        </div>
+        <div class="stat-row">
+            <span class="stat-label">Settings</span>
+            <button id="settings-btn" class="settings-btn" title="Settings">⚙</button>
+        </div>
+    </div>
+
+    <!-- Commit Panel -->
+    <div id="commit-panel" class="commit-panel">
+        <div class="commit-author">
+            <div id="author-avatar" class="author-avatar">?</div>
+            <div>
+                <div id="author-name" class="author-name">—</div>
+            </div>
+        </div>
+        <div id="commit-message" class="commit-message">Waiting for playback...</div>
+        <div id="commit-files" class="commit-files"></div>
+    </div>
+
+    <!-- Control Panel -->
+    <div id="control-panel" class="control-panel">
+        <div class="timeline-container">
+            <button id="play-btn" class="play-btn" title="Play/Pause">▶</button>
+
+            <input type="range" id="timeline-slider" class="timeline-slider" min="0" max="100" value="0">
+
+            <div class="timeline-info">
+                <span id="timeline-date" class="timeline-date">—</span>
+                <span id="timeline-commit" class="timeline-commit">—</span>
+            </div>
+
+            <div class="speed-control">
+                <button class="speed-btn" data-speed="0.5">0.5×</button>
+                <button class="speed-btn active" data-speed="1">1×</button>
+                <button class="speed-btn" data-speed="2">2×</button>
+                <button class="speed-btn" data-speed="4">4×</button>
+                <button class="speed-btn" data-speed="8">8×</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Button -->
+    <button id="reset-btn" class="reset-btn">↻ Load another file</button>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="error-toast"></div>
+
+    <!-- Settings Modal -->
+    <div id="settings-overlay" class="settings-overlay"></div>
+    <div id="settings-modal" class="settings-modal">
+        <div class="settings-header">
+            <span class="settings-title">Settings</span>
+            <button id="close-settings" class="close-btn">&times;</button>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label">Colors</label>
+            <div class="color-picker-row">
+                <span class="color-picker-label">Background</span>
+                <input type="color" id="bg-color-picker" value="#0a0a12">
+            </div>
+            <div class="color-picker-row">
+                <span class="color-picker-label">Directories</span>
+                <input type="color" id="dir-color-picker" value="#00d4ff">
+            </div>
+            <div class="color-picker-row">
+                <span class="color-picker-label">Text</span>
+                <input type="color" id="text-color-picker" value="#e8e8f0">
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label">Camera Padding</label>
+            <div class="color-picker-row">
+                <input type="range" id="padding-slider" min="0.8" max="2.0" step="0.1" value="1.1"
+                    style="flex:1; margin-right: 8px;">
+                <span id="padding-value" style="min-width: 30px; text-align: right;">1.1</span>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label">Effects</label>
+            <div class="color-picker-row">
+                <span class="color-picker-label">Bloom</span>
+                <input type="checkbox" id="bloom-toggle" checked>
+            </div>
+            <div class="color-picker-row">
+                <span class="color-picker-label">Bloom Strength</span>
+                <input type="range" id="bloom-slider" min="0" max="3" step="0.1" value="1.5"
+                    style="flex:1; margin-right: 8px;">
+                <span id="bloom-value" style="min-width: 30px; text-align: right;">1.5</span>
+            </div>
+            <div class="color-picker-row">
+                <span class="color-picker-label">Extension Colors</span>
+                <input type="checkbox" id="ext-colors-toggle" checked>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <label class="settings-label">Theme Presets</label>
+            <div class="preset-grid">
+                <button class="preset-btn active" data-theme="default">Default</button>
+                <button class="preset-btn" data-theme="light">Light</button>
+                <button class="preset-btn" data-theme="midnight">Midnight</button>
+                <button class="preset-btn" data-theme="hacker">Hacker</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Entry Point -->
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "5757086add7a4b2e81614c1f50d7a22c"}'></script>
+</body>
+
+</html>
