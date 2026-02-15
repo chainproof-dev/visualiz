@@ -17,6 +17,15 @@
     <!-- Tooltip (visible on hover) -->
     <div id="tooltip" class="tooltip"></div>
 
+    <!-- Date/Time Display (Gource-style, upper middle) -->
+    <div id="date-display" class="date-display"></div>
+
+    <!-- Recording Indicator -->
+    <div id="recording-indicator" class="recording-indicator">
+        <span class="recording-dot"></span>
+        <span class="recording-text">Recording...</span>
+    </div>
+
     <!-- Intro Screen -->
     <div id="intro-screen" class="intro-screen">
         <h1 class="intro-title">GIT GOURCE</h1>
@@ -114,6 +123,10 @@
                 <button class="speed-btn" data-speed="4">4×</button>
                 <button class="speed-btn" data-speed="8">8×</button>
             </div>
+
+            <div class="download-control">
+                <button id="download-btn" class="download-btn" title="Download Video">⬇ Download</button>
+            </div>
         </div>
     </div>
 
@@ -164,9 +177,9 @@
             </div>
             <div class="color-picker-row">
                 <span class="color-picker-label">Bloom Strength</span>
-                <input type="range" id="bloom-slider" min="0" max="3" step="0.1" value="1.5"
+                <input type="range" id="bloom-slider" min="0" max="3" step="0.1" value="0.6"
                     style="flex:1; margin-right: 8px;">
-                <span id="bloom-value" style="min-width: 30px; text-align: right;">1.5</span>
+                <span id="bloom-value" style="min-width: 30px; text-align: right;">0.6</span>
             </div>
             <div class="color-picker-row">
                 <span class="color-picker-label">Extension Colors</span>

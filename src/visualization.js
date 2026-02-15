@@ -24,9 +24,9 @@ export function getExtensionColor(filename) {
         hash = ext.charCodeAt(i) + ((hash << 5) - hash);
     }
 
-    // Gource style: map hash to hue, high saturation/lightness
+    // Gource-inspired: muted, natural tones (lower saturation, controlled lightness)
     const hue = Math.abs(hash % 360);
-    const color = `hsl(${hue}, 80%, 60%)`;
+    const color = `hsl(${hue}, 45%, 48%)`;
 
     extensionColorCache.set(ext, color);
     return color;
@@ -205,9 +205,9 @@ export function updateEdgeLines() {
             node.position
         ]);
         const material = new THREE.LineBasicMaterial({
-            color: 0x6080b0,
+            color: 0x4a6080,
             transparent: true,
-            opacity: 1.0
+            opacity: 0.3
         });
         const line = new THREE.Line(geometry, material);
         treeGroup.add(line);

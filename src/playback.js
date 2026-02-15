@@ -137,6 +137,22 @@ export function updateUI() {
     const commit = state.commits[state.currentCommitIndex];
     if (!commit) return;
 
+    // Gource-style long date: "Monday, 15 February, 2026"
+    const dateOptions = {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    };
+    const longDate = commit.timestamp.toLocaleDateString('en-US', dateOptions);
+
+    // Update date display (top-center, Gource-style)
+    const dateDisplay = document.getElementById('date-display');
+    if (dateDisplay) {
+        dateDisplay.textContent = longDate;
+        dateDisplay.classList.add('visible');
+    }
+
     document.getElementById('timeline-date').textContent = commit.timestamp.toLocaleDateString();
     document.getElementById('timeline-commit').textContent =
         `Commit ${state.currentCommitIndex + 1} / ${state.commits.length}`;

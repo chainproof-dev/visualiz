@@ -91,4 +91,11 @@ export function initEvents() {
     document.getElementById('reset-btn').addEventListener('click', () => {
         location.reload();
     });
+
+    // Download video button
+    document.getElementById('download-btn')?.addEventListener('click', () => {
+        import('./video-recorder.js').then(({ toggleRecording }) => {
+            toggleRecording();
+        });
+    });
 }

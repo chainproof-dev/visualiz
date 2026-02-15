@@ -16,7 +16,7 @@ export const themeConfig = {
     textColor: '#e8e8f0',
     cameraPadding: 1.1,
     bloomEnabled: true,
-    bloomStrength: 1.5,
+    bloomStrength: 0.6,
     extensionColors: true
 };
 

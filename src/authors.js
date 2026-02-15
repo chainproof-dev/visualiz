@@ -15,11 +15,11 @@ export function createAuthorSprite(author) {
     const g = Math.floor(author.color.g * 255);
     const b = Math.floor(author.color.b * 255);
 
-    // Draw outer glow (smaller, more subtle)
+    // Subtle outer glow (reduced from original for natural look)
     const glowLayers = [
-        { radius: 48, alpha: 0.03 },
-        { radius: 42, alpha: 0.08 },
-        { radius: 36, alpha: 0.12 }
+        { radius: 40, alpha: 0.02 },
+        { radius: 34, alpha: 0.05 },
+        { radius: 28, alpha: 0.08 }
     ];
 
     for (const layer of glowLayers) {

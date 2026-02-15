@@ -125,6 +125,9 @@ export function updateForceLayout() {
 
     if (folders.length < 1) return;
 
+    // Early exit: if alpha is very low, layout has settled
+    if (effectiveAlpha < 0.01) return;
+
     // 1. Repulsion between folders (Spatial Hash Optimized)
     const repulsionStrength = 4000;
 
@@ -134,6 +137,9 @@ export function updateForceLayout() {
         spatialHash.insert(node);
     }
 
+    // Reusable temp vector (avoid per-frame allocation in hot loop)
+    const _tempDelta = new THREE.Vector3();
+
     for (const nodeA of folders) {
         // Get nearby nodes from spatial hash
         const neighbors = spatialHash.getNearby(nodeA);
@@ -141,14 +147,13 @@ export function updateForceLayout() {
         for (const nodeB of neighbors) {
             if (nodeA === nodeB) continue;
 
-            const delta = new THREE.Vector3().subVectors(nodeA.position, nodeB.position);
-            const distSq = delta.lengthSq();
+            _tempDelta.subVectors(nodeA.position, nodeB.position);
+            const distSq = _tempDelta.lengthSq();
 
             if (distSq < 0.1) continue;
 
-            const dist = Math.sqrt(distSq);
             const force = repulsionStrength / distSq;
-            const forceVec = delta.normalize().multiplyScalar(force * effectiveAlpha);
+            const forceVec = _tempDelta.normalize().multiplyScalar(force * effectiveAlpha);
 
             if (nodeA.path !== '') nodeA.velocity.add(forceVec);
         }
