@@ -9,11 +9,11 @@ export const MAX_PARTICLES = 5000;
 // File Extension Colors Cache
 export const extensionColorCache = new Map();
 
-// Theme Config
+// Theme Config - Museum Dusk Palette
 export const themeConfig = {
-    bgColor: '#0a0a12',
-    dirColor: '#00d4ff',
-    textColor: '#e8e8f0',
+    bgColor: '#0b0d12',
+    dirColor: '#d4956c',
+    textColor: '#e8e3dc',
     cameraPadding: 1.1,
     bloomEnabled: true,
     bloomStrength: 0.6,

@@ -106,12 +106,12 @@ export function initSettings() {
         }
     });
 
-    // Themes
+    // Theme Presets - Museum Dusk & Variants
     const themes = {
-        default: { bg: '#0a0a12', text: '#e8e8f0', dir: '#00d4ff' },
-        light: { bg: '#ffffff', text: '#333333', dir: '#007aff' },
-        midnight: { bg: '#000000', text: '#cccccc', dir: '#ff00ff' },
-        hacker: { bg: '#0d1117', text: '#00ff00', dir: '#00ff00' }
+        default: { bg: '#0b0d12', text: '#e8e3dc', dir: '#d4956c' },
+        light: { bg: '#f5f3f0', text: '#2a2420', dir: '#b87a4d' },
+        midnight: { bg: '#000000', text: '#b8afa5', dir: '#c77d7d' },
+        hacker: { bg: '#0d1117', text: '#82a886', dir: '#82a886' }
     };
 
     document.querySelectorAll('.preset-btn').forEach(btn => {
